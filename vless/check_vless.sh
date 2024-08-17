@@ -36,16 +36,16 @@ generate_uuid() {
 
     # 预定义的UUID列表
     predefined_uuids=(
-        "fb210b24-46dd-4b4c-92ce-097385945dad"
-        "53cfcb07-8c25-4c25-baaa-95b4b50871a2"
-        "445ae56f-727d-495e-9c88-cbe942d144a6"
-        "078eb39d-2094-4272-b221-782ba0520dd6"
-        "5826e9cc-c5b7-49ca-8b37-a0ea68f382cc"
-        "e79fda4a-9519-4ef3-8973-130801b3d0ae"
-        "c0422b3b-00aa-4dbe-8573-6fb15d49e557"
-        "907e3ac9-02de-47fe-b40c-c2bd912c3adf"
-        "c53ca34c-8d9c-4a7e-8b44-5da52e4b5eaa"
-        "73fc0a2d-2458-435b-92aa-b4e8e3e40944"
+        "d75a68a6-fa21-4aea-ace1-c9163eb86a73"
+        "53cfcb07-8c25-4c25-baaa-95b4b50871a3"
+        "445ae56f-727d-495e-9c88-cbe942d144a5"
+        "078eb39d-2094-4272-b221-782ba0520dd4"
+        "5826e9cc-c5b7-49ca-8b37-a0ea68f382c3"
+        "e79fda4a-9519-4ef3-8973-130801b3d0a4"
+        "c0422b3b-00aa-4dbe-8573-6fb15d49e555"
+        "907e3ac9-02de-47fe-b40c-c2bd912c3ad6"
+        "c53ca34c-8d9c-4a7e-8b44-5da52e4b5ea7"
+        "73fc0a2d-2458-435b-92aa-b4e8e3e40948"
     )
     uuid=${predefined_uuids[$RANDOM % ${#predefined_uuids[@]}]}
     echo "$uuid"
@@ -102,7 +102,7 @@ check_vless_status() {
         echo "vless进程正在运行。"
     else
         echo "vless进程未运行或已停止，正在重启..."
-        pm2 restart vless
+        ~/.npm-global/bin/pm2 restart vless
         echo -e "${GREEN}vless进程已重启。${NC}"
     fi
 }
@@ -110,7 +110,7 @@ check_vless_status() {
 check_pm2_vless_snapshot() {
     if [[ -f ~/.pm2/dump.pm2 ]]; then
         echo "检测到pm2 vless快照，正在恢复..."
-        pm2 resurrect
+        ~/.npm-global/bin/pm2 resurrect
         echo -e "${GREEN}pm2 vless快照已恢复。${NC}"
         check_vless_status
     else
@@ -122,7 +122,7 @@ check_pm2_vless_snapshot() {
 
 # 检查pm2 vless的状态
 check_pm2_vless_status() {
-    pm2 describe vless &>/dev/null
+    ~/.npm-global/bin/pm2 describe vless &>/dev/null
     if [[ $? -eq 0 ]]; then
         check_vless_status
     else
