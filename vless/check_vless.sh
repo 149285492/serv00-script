@@ -97,7 +97,7 @@ start_pm2_vless_process() {
 }
 # 检查vless的状态
 check_vless_status() {
-    status=$(pm2 status vless | grep -w 'vless' | awk '{print $18}')
+    status=$(~/.npm-global/bin/pm2 status vless | grep -w 'vless' | awk '{print $18}')
     if [[ "$status" == "online" ]]; then
         echo "vless进程正在运行。"
     else
@@ -151,14 +151,14 @@ main() {
         echo "正在安装vless..."
         deploy_vless "$port"
     else
-        echo "没有提供-p参数，跳过vless安装。"
+        # echo "没有提供-p参数，跳过vless安装。"
         # 读取 config.json 中的 uuid 和 port
         if [[ -f config.json ]]; then
             uuid=$(jq -r '.uuid' config.json)
             port=$(jq -r '.port' config.json)
-            echo -e "UUID: ${uuid}"
-            echo -e "Port: ${port}"
-            echo -e "域名: $USER.serv00.net"
+            # echo -e "UUID: ${uuid}"
+            # echo -e "Port: ${port}"
+            # echo -e "域名: $USER.serv00.net"
             echo -e "VLESS节点信息: vless://${uuid}@$USER.serv00.net:${port}?flow=&security=none&encryption=none&type=ws&host=$USER.serv00.net&path=/&sni=&fp=&pbk=&sid=#$USER.serv00.vless"
 
         else
